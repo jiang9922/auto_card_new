@@ -179,7 +179,7 @@
             >
               <div class="row">
                 <span class="label">手机号</span>
-                <span class="value phone">{{ item.phone }}</span>
+                <span class="value phone">{{ maskPhone(item.phone) }}</span>
               </div>
               
               <div class="row">
@@ -383,14 +383,9 @@ function startQueryStatusPolling(token: string) {
 
 // 更新卡密显示
 function updateCardDisplay(cardData: any) {
-  // 更新 cardMatchedCode 用于显示
+  // cardMatchedCode 是 computed 属性，不能直接赋值
+  // 数据通过 codes 数组自动更新
   if (cardData.card_code) {
-    cardMatchedCode.value = {
-      id: cardData.id,
-      phone: cardData.phone || cardPhone.value,
-      card_code: cardData.card_code,
-      created_at: cardData.created_at
-    }
     // 重置倒计时
     cardFetchedAt.value = Date.now()
   }
